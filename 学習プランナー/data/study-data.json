@@ -1,0 +1,119 @@
+{
+    "subjects": [
+        "JavaScript",
+        "HTML/CSS",
+        "資格試験",
+        "英語",
+        "数学"
+    ],
+    "tasks": [
+        {
+            "id": "task-001",
+            "title": "配列メソッドの復習",
+            "subject": "JavaScript",
+            "due": "2026-06-19",
+            "minutes": 25,
+            "priority": "high",
+            "description": "filter、map、reduceを使った小問を3つ解く。"
+        },
+        {
+            "id": "task-002",
+            "title": "DOM操作の練習",
+            "subject": "JavaScript",
+            "due": "2026-06-19",
+            "minutes": 30,
+            "priority": "high",
+            "description": "クリックイベントで画面表示を変える処理を確認する。"
+        },
+        {
+            "id": "task-003",
+            "title": "レスポンシブ確認",
+            "subject": "HTML/CSS",
+            "due": "2026-06-19",
+            "minutes": 20,
+            "priority": "medium",
+            "description": "スマホ幅で文字がはみ出していないか確認する。"
+        },
+        {
+            "id": "task-004",
+            "title": "タブレット表示の確認",
+            "subject": "HTML/CSS",
+            "due": "2026-06-19",
+            "minutes": 20,
+            "priority": "medium",
+            "description": "カードやボタンが横幅に合わせて自然に並ぶか確認する。"
+        },
+        {
+            "id": "task-005",
+            "title": "フォーム入力チェック",
+            "subject": "JavaScript",
+            "due": "2026-06-20",
+            "minutes": 25,
+            "priority": "high",
+            "description": "空欄や短すぎる入力を防ぐ処理が動くか確認する。"
+        },
+        {
+            "id": "task-006",
+            "title": "JSON読み込み確認",
+            "subject": "JavaScript",
+            "due": "2026-06-20",
+            "minutes": 20,
+            "priority": "high",
+            "description": "fetchで読み込んだデータが画面に正しく表示されるか確認する。"
+        },
+        {
+            "id": "task-007",
+            "title": "例外処理のメモ作成",
+            "subject": "JavaScript",
+            "due": "2026-06-20",
+            "minutes": 30,
+            "priority": "high",
+            "description": "try...catchの使いどころを自分の言葉でまとめる。"
+        },
+        {
+            "id": "task-008",
+            "title": "確認テスト",
+            "subject": "資格試験",
+            "due": "2026-06-21",
+            "minutes": 45,
+            "priority": "medium",
+            "description": "間違えた問題をチェックして、次の復習タスクに追加する。"
+        },
+        {
+            "id": "task-009",
+            "title": "単語カード",
+            "subject": "英語",
+            "due": "2026-06-22",
+            "minutes": 15,
+            "priority": "low",
+            "description": "覚えにくい単語を10個だけ短時間で見直す。"
+        },
+        {
+            "id": "task-010",
+            "title": "計算問題の反復",
+            "subject": "数学",
+            "due": "2026-06-22",
+            "minutes": 35,
+            "priority": "medium",
+            "description": "解き方を声に出しながら、類題を5問解く。"
+        }
+    ],
+    "quotes": [
+        {
+            "text": "小さく始めて、確実に終わらせる。",
+            "author": "Focus Trail"
+        },
+        {
+            "text": "集中は準備から作れる。",
+            "author": "Study Note"
+        },
+        {
+            "text": "終わった数が、次の自信になる。",
+            "author": "Daily Review"
+        },
+        {
+            "text": "迷ったら、まず25分だけ進める。",
+            "author": "Timer Rule"
+        }
+    ]
+}

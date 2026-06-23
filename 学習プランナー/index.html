@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Trail | 学習プランナー</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-shell">
+        <header class="app-header">
+            <div class="header-copy">
+                <p class="eyebrow">JavaScript AJAX JSON App</p>
+                <h1>Focus Trail</h1>
+                <p class="lead">今日の学習タスクを整理し、進捗と集中時間をまとめて管理できます。</p>
+                <div class="header-actions" aria-label="学習状況">
+                    <span id="currentDate" class="status-pill"></span>
+                    <span class="status-pill">読込: JSON</span>
+                </div>
+            </div>
+            <img class="header-visual" src="assets/study-visual.png" alt="学習プランナーのイメージ">
+        </header>
+
+        <main>
+            <section id="alert" class="alert" hidden></section>
+
+            <section class="summary-grid" aria-label="サマリー">
+                <div class="summary-item">
+                    <span class="summary-label">タスク</span>
+                    <strong id="taskCount">0</strong>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">完了</span>
+                    <strong id="completedCount">0</strong>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">集中時間</span>
+                    <strong><span id="minutesCount">0</span>分</strong>
+                </div>
+                <div class="summary-item progress-summary">
+                    <span class="summary-label">進捗</span>
+                    <div class="progress-track" aria-hidden="true">
+                        <span id="progressBar"></span>
+                    </div>
+                    <strong id="progressLabel">0%</strong>
+                </div>
+            </section>
+
+            <section class="workspace-grid">
+                <div class="main-column">
+                    <section class="panel controls-panel" aria-label="タスク操作">
+                        <div class="field-group search-field">
+                            <label for="searchInput">検索</label>
+                            <input id="searchInput" type="search" placeholder="例: JavaScript">
+                        </div>
+                        <div class="field-group">
+                            <label for="subjectFilter">科目</label>
+                            <select id="subjectFilter"></select>
+                        </div>
+                        <div class="field-group">
+                            <label for="sortSelect">並び替え</label>
+                            <select id="sortSelect">
+                                <option value="priority">優先度</option>
+                                <option value="due">期限</option>
+                                <option value="minutes">時間</option>
+                            </select>
+                        </div>
+                        <div class="mode-switch" aria-label="表示切替">
+                            <button class="mode-button is-active" type="button" data-mode="all">すべて</button>
+                            <button class="mode-button" type="button" data-mode="today">今日</button>
+                            <button class="mode-button" type="button" data-mode="high">重要</button>
+                            <button class="mode-button" type="button" data-mode="completed">完了</button>
+                        </div>
+                    </section>
+
+                    <section class="focus-strip" aria-label="今日の集中">
+                        <div>
+                            <span id="goalLabel" class="summary-label">今日の目標</span>
+                            <strong id="dailyGoalText">0 / 0 完了</strong>
+                        </div>
+                        <blockquote>
+                            <p id="focusQuote"></p>
+                            <cite id="focusQuoteAuthor"></cite>
+                        </blockquote>
+                    </section>
+
+                    <section aria-label="タスクリスト">
+                        <div id="taskList" class="task-list"></div>
+                        <p id="emptyState" class="empty-state" hidden>条件に合うタスクがありません。</p>
+                    </section>
+                </div>
+
+                <aside class="side-column" aria-label="学習ツール">
+                    <section class="panel">
+                        <h2>タスク追加</h2>
+                        <form id="customTaskForm" class="stacked-form">
+                            <label>
+                                タイトル
+                                <input id="customTitle" type="text" maxlength="48" required>
+                            </label>
+                            <label>
+                                科目
+                                <select id="customSubject"></select>
+                            </label>
+                            <div class="form-row">
+                                <label>
+                                    分
+                                    <input id="customMinutes" type="number" min="5" max="180" step="5" value="25" required>
+                                </label>
+                                <label>
+                                    優先度
+                                    <select id="customPriority">
+                                        <option value="high">高</option>
+                                        <option value="medium" selected>中</option>
+                                        <option value="low">低</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <button class="primary-button" type="submit">追加</button>
+                        </form>
+                    </section>
+
+                    <section class="panel timer-panel">
+                        <h2>集中タイマー</h2>
+                        <p id="timerTaskName" class="timer-task">タスクを選択</p>
+                        <p id="timerTaskMeta" class="timer-meta">カードの「選択」から開始できます。</p>
+                        <div id="timerDisplay" class="timer-display" aria-live="polite">25:00</div>
+                        <div class="timer-bar" aria-hidden="true">
+                            <span id="timerProgress"></span>
+                        </div>
+                        <div class="timer-actions">
+                            <button id="startTimer" class="icon-button" type="button" aria-label="開始">▶</button>
+                            <button id="pauseTimer" class="icon-button" type="button" aria-label="一時停止">Ⅱ</button>
+                            <button id="resetTimer" class="icon-button" type="button" aria-label="リセット">↺</button>
+                        </div>
+                    </section>
+
+                    <section class="panel">
+                        <h2>表示変更</h2>
+                        <form id="focusForm" class="stacked-form">
+                            <label>
+                                目標名
+                                <input id="goalLabelInput" type="text" maxlength="20" placeholder="今日の目標">
+                            </label>
+                            <label>
+                                目標表示
+                                <input id="goalTextInput" type="text" maxlength="32" placeholder="0 / 4 完了">
+                            </label>
+                            <label>
+                                一言
+                                <input id="quoteInput" type="text" maxlength="60" placeholder="集中は準備から作れる。">
+                            </label>
+                            <label>
+                                名前
+                                <input id="quoteAuthorInput" type="text" maxlength="30" placeholder="Study Note">
+                            </label>
+                            <div class="form-row">
+                                <button class="secondary-button compact-button" type="submit">変更</button>
+                                <button id="resetFocusText" class="plain-button" type="button">自動に戻す</button>
+                            </div>
+                        </form>
+                    </section>
+
+                    <section class="panel">
+                        <h2>メモ</h2>
+                        <textarea id="noteInput" rows="6" placeholder="今日の気づき"></textarea>
+                        <button id="saveNote" class="secondary-button" type="button">保存</button>
+                        <p id="noteStatus" class="note-status" aria-live="polite"></p>
+                    </section>
+                </aside>
+            </section>
+        </main>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <script src="js/app.js"></script>
+</body>
+</html>
